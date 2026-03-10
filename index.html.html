@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nix — Agência de Marketing Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #01000B;
+  --bg-card: #08071A;
+  --blue:    #0047BC;
+  --blue-lt: #2563eb;
+  --white:   #FFFFFF;
+  --gray:    rgba(255,255,255,.45);
+  --border:  rgba(0,71,188,.25);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.35;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;
+  justify-content:space-between;padding:1.2rem 5%;
+  background:rgba(1,0,11,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);}
+.logo-container{display:flex;align-items:center;gap:.8rem;text-decoration:none;cursor:pointer;}
+.nix-shape{width:46px;height:28px;background:#0047bb;
+  clip-path:polygon(20% 0%,100% 0%,70% 100%,0% 100%);
+  border-bottom-left-radius:50% 20%;transform:skewX(-10deg);}
+.logo-text{font-family:'Syncopate',sans-serif;font-weight:700;font-size:1.05rem;
+  color:var(--white);letter-spacing:.1em;}
+.nav-links{display:flex;align-items:center;gap:2.2rem;list-style:none;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.82rem;
+  font-weight:400;letter-spacing:.03em;transition:color .2s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);}
+.btn-wa{background:var(--blue);color:var(--white)!important;padding:.5rem 1.2rem;
+  border-radius:.3rem;font-size:.8rem;font-weight:500!important;text-decoration:none;
+  transition:background .2s,transform .2s;white-space:nowrap;}
+.btn-wa:hover{background:var(--blue-lt)!important;transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:.3rem;}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:.3s;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:72px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+.hero{min-height:calc(100vh - 72px);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:4rem 5% 5rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,71,188,.16) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  animation:glow 7s ease-in-out infinite;}
+@keyframes glow{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+.hero-badge{display:inline-block;border:1px solid var(--border);border-radius:2rem;
+  padding:.35rem 1rem;font-size:.7rem;color:rgba(0,71,188,.95);letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:2rem;background:rgba(0,71,188,.07);}
+.hero h1{font-family:'Syncopate',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,4.2vw,3.3rem);line-height:1.2;max-width:800px;margin:0 auto;}
+.hero h1 span{color:var(--blue);}
+.hero-sub{color:var(--gray);font-size:.98rem;line-height:1.8;
+  max-width:520px;margin:1.6rem auto 2.8rem;font-weight:300;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--blue);color:var(--white);padding:.8rem 2rem;
+  border-radius:.35rem;text-decoration:none;font-weight:500;font-size:.88rem;
+  transition:all .2s;border:none;cursor:pointer;font-family:'Poppins',sans-serif;}
+.btn-primary:hover{background:var(--blue-lt);transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(0,71,188,.4);}
+.btn-outline{background:transparent;color:var(--white);padding:.8rem 2rem;
+  border-radius:.35rem;text-decoration:none;font-weight:400;font-size:.88rem;
+  border:1px solid var(--border);transition:all .2s;cursor:pointer;
+  font-family:'Poppins',sans-serif;}
+.btn-outline:hover{border-color:var(--blue);color:rgba(0,71,188,.9);}
+.hero-metrics{display:flex;gap:4rem;justify-content:center;margin-top:5rem;flex-wrap:wrap;}
+.metric .val{font-family:'Syncopate',sans-serif;font-size:2rem;font-weight:700;line-height:1;}
+.metric .val span{color:var(--blue);}
+.metric .lbl{font-size:.73rem;color:var(--gray);margin-top:.35rem;letter-spacing:.04em;}
+
+/* ── SECTION ── */
+section{padding:5rem 5%;}
+.sec-label{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blue);font-weight:500;margin-bottom:.8rem;}
+.sec-title{font-family:'Syncopate',sans-serif;font-size:clamp(1.3rem,2.6vw,2rem);
+  font-weight:700;line-height:1.18;letter-spacing:-.01em;}
+.sec-sub{color:var(--gray);font-size:.88rem;line-height:1.78;
+  max-width:480px;margin-top:.9rem;font-weight:300;}
+.sec-hdr{margin-bottom:3rem;}
+.sec-hdr.center{text-align:center;}
+.sec-hdr.center .sec-sub{margin:1rem auto 0;}
+
+/* ── CARDS ── */
+.cards-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.svc-card{background:var(--bg-card);border:1px solid var(--border);
+  border-radius:.7rem;padding:2.2rem;transition:border-color .3s,transform .3s;
+  position:relative;overflow:hidden;}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--blue);transform:scaleX(0);transform-origin:left;transition:.4s;}
+.svc-card:hover{border-color:rgba(0,71,188,.55);transform:translateY(-4px);}
+.svc-card:hover::before{transform:scaleX(1);}
+.card-icon{width:46px;height:46px;border-radius:.5rem;background:rgba(0,71,188,.1);
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.4rem;}
+.card-title{font-family:'Syncopate',sans-serif;font-size:.88rem;font-weight:700;
+  margin-bottom:.6rem;letter-spacing:.02em;}
+.card-desc{color:var(--gray);font-size:.83rem;line-height:1.72;font-weight:300;}
+.card-link{display:inline-block;margin-top:1.2rem;font-size:.78rem;color:var(--blue);
+  text-decoration:none;font-weight:500;transition:color .2s;cursor:pointer;}
+.card-link:hover{color:var(--blue-lt);}
+
+/* ── BENEFITS ── */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;}
+.benefit-item{text-align:center;padding:1.5rem 1rem;}
+.benefit-icon{font-size:2rem;margin-bottom:.9rem;}
+.benefit-title{font-family:'Syncopate',sans-serif;font-size:.8rem;font-weight:700;
+  margin-bottom:.55rem;letter-spacing:.03em;}
+.benefit-desc{color:var(--gray);font-size:.8rem;line-height:1.65;font-weight:300;}
+
+/* ── RESULTS ── */
+.results-bg{background:rgba(0,71,188,.05);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);}
+.results-inner{display:flex;flex-wrap:wrap;}
+.res-item{flex:1;min-width:140px;text-align:center;padding:2.8rem 1rem;
+  border-right:1px solid var(--border);}
+.res-item:last-child{border-right:none;}
+.res-val{font-family:'Syncopate',sans-serif;font-size:2rem;font-weight:700;}
+.res-val span{color:var(--blue);}
+.res-lbl{font-size:.75rem;color:var(--gray);margin-top:.35rem;letter-spacing:.04em;}
+
+/* ── TESTIMONIALS ── */
+.testi-wrap{overflow:hidden;}
+.testi-track{display:flex;gap:1.5rem;transition:transform .45s ease;}
+.testi-card{background:var(--bg-card);border:1px solid var(--border);
+  border-radius:.7rem;padding:1.8rem;min-width:295px;flex:0 0 295px;}
+.testi-stars{color:#f59e0b;font-size:.85rem;margin-bottom:.9rem;}
+.testi-text{color:var(--gray);font-size:.85rem;line-height:1.72;
+  font-style:italic;margin-bottom:1.4rem;font-weight:300;}
+.testi-author{display:flex;align-items:center;gap:.75rem;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-lt));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syncopate',sans-serif;font-size:.65rem;font-weight:700;flex-shrink:0;}
+.testi-name{font-size:.85rem;font-weight:500;}
+.testi-role{font-size:.73rem;color:var(--gray);}
+.testi-nav{display:flex;gap:.6rem;justify-content:center;margin-top:1.8rem;}
+.testi-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);
+  background:none;color:var(--white);cursor:pointer;font-size:.9rem;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.testi-btn:hover{background:var(--blue);border-color:var(--blue);}
+
+/* ── CTA FINAL ── */
+.cta-box{background:rgba(0,71,188,.07);border:1px solid var(--border);
+  border-radius:.9rem;padding:4rem 3rem;text-align:center;max-width:680px;margin:0 auto;}
+.cta-box h2{font-family:'Syncopate',sans-serif;font-size:clamp(1.1rem,2.3vw,1.7rem);
+  font-weight:700;line-height:1.22;margin-bottom:.9rem;}
+.cta-box p{color:var(--gray);font-size:.88rem;margin-bottom:2rem;font-weight:300;}
+
+/* ── PAGE: SERVICES ── */
+.svc-detail{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  padding:4rem 0;border-bottom:1px solid var(--border);}
+.svc-detail:last-child{border-bottom:none;}
+.svc-detail.rev .svc-info{order:2;}.svc-detail.rev .svc-visual{order:1;}
+.svc-dtitle{font-family:'Syncopate',sans-serif;font-size:1.3rem;font-weight:700;
+  margin-bottom:.9rem;letter-spacing:-.01em;}
+.svc-ddesc{color:var(--gray);font-size:.88rem;line-height:1.78;margin-bottom:1.4rem;font-weight:300;}
+.svc-list{list-style:none;display:flex;flex-direction:column;gap:.45rem;}
+.svc-list li{font-size:.83rem;color:var(--gray);display:flex;align-items:center;gap:.65rem;}
+.svc-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+.svc-visual{background:var(--bg-card);border:1px solid var(--border);border-radius:.9rem;
+  height:260px;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.tags-row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem;}
+.tag{background:rgba(0,71,188,.1);border:1px solid var(--border);border-radius:2rem;
+  padding:.3rem .85rem;font-size:.72rem;color:rgba(0,71,188,.95);}
+
+/* ── PAGE: PORTFOLIO ── */
+.port-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;}
+.port-card{background:var(--bg-card);border:1px solid var(--border);border-radius:.7rem;
+  overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s;}
+.port-card:hover{transform:translateY(-4px);border-color:rgba(0,71,188,.55);}
+.port-img{height:170px;display:flex;align-items:center;justify-content:center;
+  font-size:3rem;background:rgba(0,71,188,.06);}
+.port-info{padding:1.4rem;}
+.port-client{font-size:.7rem;color:var(--blue);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:.35rem;}
+.port-title{font-family:'Syncopate',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:.45rem;}
+.port-desc{color:var(--gray);font-size:.8rem;line-height:1.62;font-weight:300;}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:800;
+  background:rgba(1,0,11,.92);backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;padding:2rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:.9rem;
+  max-width:580px;width:100%;padding:2.2rem;position:relative;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;
+  color:var(--gray);font-size:1.2rem;cursor:pointer;transition:color .2s;}
+.modal-close:hover{color:var(--white);}
+.modal-img{height:190px;border-radius:.5rem;background:rgba(0,71,188,.06);
+  display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1.4rem;}
+.modal-tag{font-size:.7rem;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.modal-title{font-family:'Syncopate',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.7rem;}
+.modal-text{color:var(--gray);font-size:.85rem;line-height:1.72;font-weight:300;}
+
+/* ── PAGE: ABOUT ── */
+.about-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  align-items:center;padding:5rem 5% 3rem;}
+.about-visual{background:var(--bg-card);border:1px solid var(--border);
+  border-radius:.9rem;height:340px;display:flex;align-items:center;justify-content:center;}
+.nix-shape-lg{width:110px;height:66px;background:var(--blue);
+  clip-path:polygon(20% 0%,100% 0%,70% 100%,0% 100%);
+  border-bottom-left-radius:50% 20%;transform:skewX(-10deg);}
+.mvv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.3rem;padding:0 5% 4.5rem;}
+.mvv-card{background:var(--bg-card);border:1px solid var(--border);border-radius:.7rem;padding:1.8rem;}
+.mvv-title{font-family:'Syncopate',sans-serif;font-size:.75rem;font-weight:700;
+  color:var(--blue);margin-bottom:.7rem;letter-spacing:.07em;}
+.mvv-text{color:var(--gray);font-size:.83rem;line-height:1.72;font-weight:300;}
+.vals-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.vals-list li{font-size:.83rem;color:var(--gray);display:flex;align-items:center;gap:.6rem;}
+.vals-list li::before{content:'✦';color:var(--blue);font-size:.5rem;flex-shrink:0;}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.5rem;
+  padding:0 5% 5rem;}
+.diff-item{border-left:2px solid var(--blue);padding-left:1.1rem;}
+.diff-title{font-family:'Syncopate',sans-serif;font-size:.78rem;font-weight:700;margin-bottom:.45rem;}
+.diff-desc{color:var(--gray);font-size:.8rem;line-height:1.62;font-weight:300;}
+
+/* ── PAGE: CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;
+  max-width:940px;margin:0 auto;padding:5rem 5%;}
+.contact-info h2{font-family:'Syncopate',sans-serif;
+  font-size:clamp(1.2rem,2.4vw,1.9rem);font-weight:700;margin-bottom:.9rem;line-height:1.2;}
+.contact-info p{color:var(--gray);font-size:.88rem;line-height:1.78;font-weight:300;margin-bottom:1.8rem;}
+.citem{display:flex;align-items:center;gap:.75rem;padding:.75rem 0;
+  border-bottom:1px solid var(--border);font-size:.85rem;color:var(--gray);}
+.citem a{color:var(--gray);text-decoration:none;transition:color .2s;}
+.citem a:hover{color:var(--white);}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.73rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--gray);margin-bottom:.42rem;}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:.35rem;padding:.78rem .95rem;color:var(--white);
+  font-family:'Poppins',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blue);}
+.form-group textarea{height:105px;resize:vertical;}
+.form-group select option{background:var(--bg);}
+.form-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.6rem;}
+.form-submit{background:var(--blue);color:var(--white);padding:.78rem 1.8rem;
+  border:none;border-radius:.35rem;font-family:'Poppins',sans-serif;
+  font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.form-submit:hover{background:var(--blue-lt);transform:translateY(-1px);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:#16a34a;
+  color:#fff;padding:.9rem 1.4rem;border-radius:.45rem;font-size:.85rem;font-weight:500;
+  transform:translateY(100px);opacity:0;transition:all .4s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.error{background:#dc2626;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg-card);border-top:1px solid var(--border);padding:3.5rem 5% 2rem;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;}
+.footer-brand p{color:var(--gray);font-size:.8rem;line-height:1.72;
+  margin-top:.7rem;max-width:240px;font-weight:300;}
+.footer-col h4{font-family:'Syncopate',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:.1em;color:var(--white);margin-bottom:.9rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;}
+.footer-col a{color:var(--gray);text-decoration:none;font-size:.8rem;
+  transition:color .2s;cursor:pointer;}
+.footer-col a:hover{color:var(--white);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;
+  padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:.8rem;}
+.footer-bottom p{font-size:.75rem;color:var(--gray);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .svc-detail{grid-template-columns:1fr;}
+  .svc-detail.rev .svc-info,.svc-detail.rev .svc-visual{order:unset;}
+  .about-intro{grid-template-columns:1fr;}
+  .contact-wrap{grid-template-columns:1fr;gap:3rem;}
+}
+@media(max-width:640px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;background:rgba(1,0,11,.98);padding:1.5rem 5%;gap:1rem;
+    border-bottom:1px solid var(--border);}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .hero-metrics{gap:2rem;}
+  .results-inner{flex-direction:column;}
+  .res-item{border-right:none;border-bottom:1px solid var(--border);}
+  .res-item:last-child{border-bottom:none;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="logo-container" onclick="showPage('home')">
+    <div class="nix-shape"></div>
+    <span class="logo-text">NIX</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="showPage('home')" class="active" data-page="home">Home</a></li>
+    <li><a onclick="showPage('services')" data-page="services">Serviços</a></li>
+    <li><a onclick="showPage('portfolio')" data-page="portfolio">Portfólio</a></li>
+    <li><a onclick="showPage('about')" data-page="about">Sobre</a></li>
+    <li><a onclick="showPage('contact')" data-page="contact">Contato</a></li>
+    <li><a href="https://wa.me/5500000000000" target="_blank" class="btn-wa">💬 WhatsApp</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════ PAGE: HOME ══════════ -->
+<div class="page active" id="p-home">
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">Agência de Marketing Digital</div>
+    <h1>Marketing digital simples e eficiente para pequenas empresas <span>crescerem online</span></h1>
+    <p class="hero-sub">A Nix ajuda empresas a atrair clientes, fortalecer sua marca e vender mais pela internet — com estratégias que funcionam de verdade.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('contact')">Solicitar orçamento</button>
+      <a href="https://wa.me/5500000000000" target="_blank" class="btn-outline">💬 Falar no WhatsApp</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric"><div class="val">50<span>+</span></div><div class="lbl">Empresas atendidas</div></div>
+      <div class="metric"><div class="val">200<span>+</span></div><div class="lbl">Campanhas criadas</div></div>
+      <div class="metric"><div class="val">1M<span>+</span></div><div class="lbl">Pessoas alcançadas</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-hdr center reveal">
+      <div class="sec-label">O que fazemos</div>
+      <h2 class="sec-title">Soluções digitais completas</h2>
+      <p class="sec-sub">Tudo que sua empresa precisa para crescer online, em um único lugar.</p>
+    </div>
+    <div class="cards-3 reveal">
+      <div class="svc-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Gestão de Redes Sociais</div>
+        <p class="card-desc">Conteúdo estratégico, artes profissionais e calendário editorial para crescer nas redes e engajar seu público.</p>
+        <span class="card-link" onclick="showPage('services')">Saiba mais →</span>
+      </div>
+      <div class="svc-card">
+        <div class="card-icon">🚀</div>
+        <div class="card-title">Gestão de Tráfego Pago</div>
+        <p class="card-desc">Campanhas no Meta Ads e Google Ads que geram leads qualificados e vendas reais para o seu negócio.</p>
+        <span class="card-link" onclick="showPage('services')">Saiba mais →</span>
+      </div>
+      <div class="svc-card">
+        <div class="card-icon">💻</div>
+        <div class="card-title">Criação de Sites</div>
+        <p class="card-desc">Sites institucionais, landing pages e páginas de vendas que convertem visitantes em clientes.</p>
+        <span class="card-link" onclick="showPage('services')">Saiba mais →</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:rgba(0,71,188,.04);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="sec-hdr center reveal">
+      <div class="sec-label">Por que a Nix</div>
+      <h2 class="sec-title">Vantagens que fazem a diferença</h2>
+    </div>
+    <div class="benefits-grid reveal">
+      <div class="benefit-item">
+        <div class="benefit-icon">🎯</div>
+        <div class="benefit-title">Mais clientes online</div>
+        <p class="benefit-desc">Estratégias focadas em gerar leads qualificados para o seu tipo de negócio.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">⭐</div>
+        <div class="benefit-title">Presença profissional</div>
+        <p class="benefit-desc">Sua marca com identidade forte, credibilidade e autoridade no digital.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📊</div>
+        <div class="benefit-title">Estratégias eficientes</div>
+        <p class="benefit-desc">Cada ação baseada em dados, focada em resultados mensuráveis.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">⏱️</div>
+        <div class="benefit-title">Economia de tempo</div>
+        <p class="benefit-desc">Você foca no seu negócio enquanto a Nix cuida do marketing.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="results-bg">
+    <div class="results-inner reveal">
+      <div class="res-item"><div class="res-val">50<span>+</span></div><div class="res-lbl">Empresas atendidas</div></div>
+      <div class="res-item"><div class="res-val">200<span>+</span></div><div class="res-lbl">Campanhas criadas</div></div>
+      <div class="res-item"><div class="res-val">1000<span>+</span></div><div class="res-lbl">Conteúdos produzidos</div></div>
+      <div class="res-item"><div class="res-val">1M<span>+</span></div><div class="res-lbl">Pessoas alcançadas</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-hdr center reveal">
+      <div class="sec-label">Clientes</div>
+      <h2 class="sec-title">O que dizem sobre a Nix</h2>
+    </div>
+    <div class="testi-wrap reveal">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"A Nix transformou nossa presença digital. Em 3 meses triplicamos os seguidores e dobramos as vendas online."</p>
+          <div class="testi-author"><div class="testi-avatar">AC</div>
+            <div><div class="testi-name">Ana Costa</div><div class="testi-role">Boutique — Varejo</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"O site que criaram pra gente é incrível. Profissional, rápido e já trouxe vários novos clientes desde o lançamento."</p>
+          <div class="testi-author"><div class="testi-avatar">RM</div>
+            <div><div class="testi-name">Rafael Mendes</div><div class="testi-role">Arquitetura — Serviços</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Com o tráfego pago da Nix, o custo por lead caiu 40% e as vendas dispararam. Resultado imediato e real."</p>
+          <div class="testi-author"><div class="testi-avatar">JS</div>
+            <div><div class="testi-name">Julia Souza</div><div class="testi-role">TechFlow — Tecnologia</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Atendimento próximo e estratégia personalizada. Sinto que eles realmente se importam com o crescimento do meu negócio."</p>
+          <div class="testi-author"><div class="testi-avatar">LP</div>
+            <div><div class="testi-name">Lucas Pereira</div><div class="testi-role">Clínica — Saúde</div></div></div>
+        </div>
+      </div>
+      <div class="testi-nav">
+        <button class="testi-btn" onclick="slideTestis(-1)">‹</button>
+        <button class="testi-btn" onclick="slideTestis(1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta-box reveal">
+      <h2>Pronto para atrair mais clientes para sua empresa?</h2>
+      <p>Entre em contato hoje e descubra como a Nix pode transformar sua presença digital em resultado real.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Solicitar orçamento</button>
+        <a href="https://wa.me/5500000000000" target="_blank" class="btn-outline">💬 Falar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ PAGE: SERVICES ══════════ -->
+<div class="page" id="p-services">
+  <section>
+    <div class="sec-hdr reveal">
+      <div class="sec-label">Serviços</div>
+      <h2 class="sec-title">Tudo que sua empresa<br>precisa para crescer</h2>
+      <p class="sec-sub">Cada serviço é pensado para gerar resultado real e mensurável.</p>
+    </div>
+    <div class="svc-detail reveal">
+      <div class="svc-info">
+        <div class="sec-label">01 — Social Media</div>
+        <h3 class="svc-dtitle">Gestão de Redes Sociais</h3>
+        <p class="svc-ddesc">Sua presença nas redes com estratégia, consistência e criatividade. Cuidamos de tudo para que sua marca seja vista, lembrada e admirada.</p>
+        <ul class="svc-list">
+          <li>Planejamento de conteúdo mensal</li>
+          <li>Criação de artes e posts</li>
+          <li>Copywriting e legendas estratégicas</li>
+          <li>Calendário editorial completo</li>
+          <li>Estratégia de crescimento orgânico</li>
+          <li>Relatórios mensais de performance</li>
+        </ul>
+        <div class="tags-row">
+          <span class="tag">↑ Autoridade</span>
+          <span class="tag">↑ Seguidores</span>
+          <span class="tag">↑ Engajamento</span>
+        </div>
+        <button class="btn-primary" style="margin-top:1.8rem;" onclick="showPage('contact')">Solicitar orçamento</button>
+      </div>
+      <div class="svc-visual">📱</div>
+    </div>
+    <div class="svc-detail rev reveal">
+      <div class="svc-visual">🚀</div>
+      <div class="svc-info">
+        <div class="sec-label">02 — Tráfego Pago</div>
+        <h3 class="svc-dtitle">Gestão de Tráfego Pago</h3>
+        <p class="svc-ddesc">Anúncios que entregam o público certo, no momento certo. Seu investimento gerando retorno real e mensurável.</p>
+        <ul class="svc-list">
+          <li>Campanhas Meta Ads (Facebook & Instagram)</li>
+          <li>Campanhas Google Ads</li>
+          <li>Segmentação avançada de público</li>
+          <li>Criação de criativos para anúncios</li>
+          <li>Otimização contínua de ROAS</li>
+          <li>Relatórios semanais de resultados</li>
+        </ul>
+        <div class="tags-row">
+          <span class="tag">↑ Leads</span>
+          <span class="tag">↑ Vendas</span>
+          <span class="tag">↓ Custo/Lead</span>
+        </div>
+        <button class="btn-primary" style="margin-top:1.8rem;" onclick="showPage('contact')">Solicitar orçamento</button>
+      </div>
+    </div>
+    <div class="svc-detail reveal">
+      <div class="svc-info">
+        <div class="sec-label">03 — Sites</div>
+        <h3 class="svc-dtitle">Criação de Sites</h3>
+        <p class="svc-ddesc">Do design à publicação, sites que convertem visitantes em clientes e posicionam sua marca no Google.</p>
+        <ul class="svc-list">
+          <li>Sites institucionais completos</li>
+          <li>Landing pages de alta conversão</li>
+          <li>Páginas de vendas</li>
+          <li>Otimização para SEO</li>
+          <li>Design responsivo mobile-first</li>
+          <li>Suporte e manutenção contínua</li>
+        </ul>
+        <div class="tags-row">
+          <span class="tag">↑ Credibilidade</span>
+          <span class="tag">↑ Google</span>
+          <span class="tag">↑ Conversão</span>
+        </div>
+        <button class="btn-primary" style="margin-top:1.8rem;" onclick="showPage('contact')">Solicitar orçamento</button>
+      </div>
+      <div class="svc-visual">💻</div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ PAGE: PORTFOLIO ══════════ -->
+<div class="page" id="p-portfolio">
+  <section>
+    <div class="sec-hdr reveal">
+      <div class="sec-label">Portfólio</div>
+      <h2 class="sec-title">Projetos que geraram resultados</h2>
+      <p class="sec-sub">Uma seleção de trabalhos que transformaram negócios reais.</p>
+    </div>
+    <div class="port-grid reveal">
+      <div class="port-card" onclick="openModal(0)">
+        <div class="port-img">🍕</div>
+        <div class="port-info">
+          <div class="port-client">Restaurante — Social Media</div>
+          <div class="port-title">Pizzaria Don Carlo</div>
+          <p class="port-desc">Crescimento de 280% no Instagram e aumento de reservas via direct.</p>
+        </div>
+      </div>
+      <div class="port-card" onclick="openModal(1)">
+        <div class="port-img">🏥</div>
+        <div class="port-info">
+          <div class="port-client">Clínica — Tráfego Pago</div>
+          <div class="port-title">Clínica Vida Plena</div>
+          <p class="port-desc">Custo por lead reduzido em 45% e agenda lotada em 60 dias.</p>
+        </div>
+      </div>
+      <div class="port-card" onclick="openModal(2)">
+        <div class="port-img">🏠</div>
+        <div class="port-info">
+          <div class="port-client">Imobiliária — Site + SEO</div>
+          <div class="port-title">Imóveis Premium</div>
+          <p class="port-desc">Aumento de 320% em tráfego orgânico em 3 meses.</p>
+        </div>
+      </div>
+      <div class="port-card" onclick="openModal(3)">
+        <div class="port-img">💈</div>
+        <div class="port-info">
+          <div class="port-client">Barbearia — Social Media</div>
+          <div class="port-title">The Barber</div>
+          <p class="port-desc">De 500 para 8.000 seguidores e lista de espera nos agendamentos.</p>
+        </div>
+      </div>
+      <div class="port-card" onclick="openModal(4)">
+        <div class="port-img">👗</div>
+        <div class="port-info">
+          <div class="port-client">Moda — Tráfego + Social</div>
+          <div class="port-title">Boutique Elegance</div>
+          <p class="port-desc">ROAS de 4.2x nas campanhas Meta Ads com criativos da Nix.</p>
+        </div>
+      </div>
+      <div class="port-card" onclick="openModal(5)">
+        <div class="port-img">⚖️</div>
+        <div class="port-info">
+          <div class="port-client">Advocacia — Site + Google</div>
+          <div class="port-title">Silva & Advogados</div>
+          <p class="port-desc">Site institucional + Google Ads com 5x mais contatos mensais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOut(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img" id="mImg"></div>
+    <div class="modal-tag" id="mTag"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <p class="modal-text" id="mText"></p>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: ABOUT ══════════ -->
+<div class="page" id="p-about">
+  <div class="about-intro reveal">
+    <div>
+      <div class="sec-label">Sobre a Nix</div>
+      <h2 class="sec-title" style="font-size:clamp(1.3rem,2.8vw,2rem);">Especialistas em fazer pequenas empresas crescerem online</h2>
+      <p style="color:var(--gray);font-size:.88rem;line-height:1.8;margin-top:1rem;font-weight:300;">A Nix nasceu com um propósito claro: democratizar o marketing digital de qualidade para pequenas e médias empresas. Acreditamos que toda empresa, independente do tamanho, merece estratégias digitais eficientes.</p>
+      <p style="color:var(--gray);font-size:.88rem;line-height:1.8;margin-top:.8rem;font-weight:300;">Nossa equipe combina criatividade, estratégia e tecnologia para entregar resultados reais e mensuráveis para nossos clientes.</p>
+    </div>
+    <div class="about-visual"><div class="nix-shape-lg"></div></div>
+  </div>
+  <div class="mvv-grid reveal">
+    <div class="mvv-card">
+      <div class="mvv-title">Missão</div>
+      <p class="mvv-text">Ajudar empresas a crescer através do marketing digital, com estratégias personalizadas e foco em resultados reais.</p>
+    </div>
+    <div class="mvv-card">
+      <div class="mvv-title">Visão</div>
+      <p class="mvv-text">Ser referência em soluções digitais para pequenas empresas, reconhecidos pela qualidade e pelos resultados que entregamos.</p>
+    </div>
+    <div class="mvv-card">
+      <div class="mvv-title">Valores</div>
+      <ul class="vals-list">
+        <li>Transparência em tudo</li>
+        <li>Foco em resultados</li>
+        <li>Criatividade e inovação</li>
+        <li>Parceria genuína com clientes</li>
+      </ul>
+    </div>
+  </div>
+  <div style="padding:0 5% 2rem;">
+    <div class="sec-hdr reveal">
+      <div class="sec-label">Diferenciais</div>
+      <h2 class="sec-title">Por que escolher a Nix?</h2>
+    </div>
+  </div>
+  <div class="diff-grid reveal">
+    <div class="diff-item">
+      <div class="diff-title">Atendimento próximo</div>
+      <p class="diff-desc">Você tem acesso direto à equipe. Sem intermediários, sem burocracia.</p>
+    </div>
+    <div class="diff-item">
+      <div class="diff-title">Estratégia personalizada</div>
+      <p class="diff-desc">Nada de fórmula pronta. Cada cliente tem uma estratégia única.</p>
+    </div>
+    <div class="diff-item">
+      <div class="diff-title">Foco em resultados reais</div>
+      <p class="diff-desc">Métricas que importam: leads, vendas, crescimento de receita.</p>
+    </div>
+    <div class="diff-item">
+      <div class="diff-title">Soluções simples e eficientes</div>
+      <p class="diff-desc">Sem complexidade desnecessária. Marketing que funciona de verdade.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: CONTACT ══════════ -->
+<div class="page" id="p-contact">
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <div class="sec-label">Contato</div>
+      <h2>Vamos fazer sua<br>empresa crescer?</h2>
+      <p>Preencha o formulário ou fale direto com nossa equipe. Respondemos em até 24h.</p>
+      <div class="citem"><span>💬</span><a href="https://wa.me/5500000000000" target="_blank">(00) 0 0000-0000</a></div>
+      <div class="citem"><span>✉️</span><a href="mailto:contato@nixagencia.com.br">contato@nixagencia.com.br</a></div>
+      <div class="citem"><span>📍</span><span>São Paulo, SP — Brasil</span></div>
+      <div class="citem"><span>🕐</span><span>Seg–Sex: 9h às 18h</span></div>
+    </div>
+    <div class="reveal">
+      <div class="form-group"><label>Nome completo</label><input type="text" id="fName" placeholder="Seu nome"></div>
+      <div class="form-group"><label>Empresa</label><input type="text" id="fCompany" placeholder="Nome da empresa"></div>
+      <div class="form-group"><label>E-mail</label><input type="email" id="fEmail" placeholder="seu@email.com"></div>
+      <div class="form-group"><label>Telefone / WhatsApp</label><input type="tel" id="fPhone" placeholder="(00) 0 0000-0000"></div>
+      <div class="form-group">
+        <label>Serviço de interesse</label>
+        <select id="fService">
+          <option value="">Selecione um serviço</option>
+          <option>Gestão de Redes Sociais</option>
+          <option>Gestão de Tráfego Pago</option>
+          <option>Criação de Site</option>
+          <option>Pacote Completo</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Mensagem</label><textarea id="fMsg" placeholder="Conte sobre seu negócio e seus objetivos..."></textarea></div>
+      <div class="form-btns">
+        <button class="form-submit" onclick="submitForm()">Enviar mensagem</button>
+        <a href="https://wa.me/5500000000000" target="_blank" class="btn-outline">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem;">
+        <div class="nix-shape"></div>
+        <span style="font-family:'Syncopate',sans-serif;font-weight:700;font-size:.95rem;">NIX</span>
+      </div>
+      <p>Agência de marketing digital especializada em ajudar pequenas empresas a crescerem online.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Páginas</h4>
+      <ul>
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('services')">Serviços</a></li>
+        <li><a onclick="showPage('portfolio')">Portfólio</a></li>
+        <li><a onclick="showPage('about')">Sobre</a></li>
+        <li><a onclick="showPage('contact')">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a onclick="showPage('services')">Redes Sociais</a></li>
+        <li><a onclick="showPage('services')">Tráfego Pago</a></li>
+        <li><a onclick="showPage('services')">Criação de Sites</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Redes Sociais</h4>
+      <ul>
+        <li><a href="#" target="_blank">Instagram</a></li>
+        <li><a href="#" target="_blank">LinkedIn</a></li>
+        <li><a href="#" target="_blank">Facebook</a></li>
+        <li><a href="https://wa.me/5500000000000" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Nix Agência de Marketing Digital. Todos os direitos reservados.</p>
+    <p>contato@nixagencia.com.br</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─ PAGE NAV ─
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p-'+page).classList.add('active');
+  document.querySelectorAll('[data-page]').forEach(a=>
+    a.classList.toggle('active', a.dataset.page===page));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<=640) document.getElementById('navLinks').classList.remove('open');
+  setTimeout(initReveals,120);
+}
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ─ TESTIMONIALS ─
+let ti=0;
+const tCards=4;
+function slideTestis(d){
+  ti=(ti+d+tCards)%tCards;
+  const w=(document.querySelector('.testi-card')?.offsetWidth||295)+24;
+  document.getElementById('testiTrack').style.transform=`translateX(-${ti*w}px)`;
+}
+
+// ─ PORTFOLIO MODAL ─
+const proj=[
+  {icon:'🍕',tag:'Restaurante — Social Media',title:'Pizzaria Don Carlo',
+    text:'Planejamento de conteúdo mensal, criação de artes e estratégia de crescimento. Em 4 meses o perfil cresceu 280% e as reservas via direct aumentaram 150%. Engajamento saltou de 2% para 8,5%.'},
+  {icon:'🏥',tag:'Clínica — Tráfego Pago',title:'Clínica Vida Plena',
+    text:'Campanhas no Meta Ads e Google Ads segmentadas para pacientes locais. Custo por lead reduzido em 45% e agenda completamente lotada em 60 dias. ROAS médio de 5.1x nas campanhas.'},
+  {icon:'🏠',tag:'Imobiliária — Site + SEO',title:'Imóveis Premium',
+    text:'Site institucional com foco em SEO e conversão. Em 3 meses, tráfego orgânico cresceu 320% e contatos via site aumentaram 4x. Página 1 do Google para 12 palavras-chave estratégicas.'},
+  {icon:'💈',tag:'Barbearia — Social Media',title:'The Barber',
+    text:'Gestão completa do Instagram com conteúdo autêntico e estratégia de crescimento. Em 6 meses, saiu de 500 para 8.000 seguidores reais e hoje tem lista de espera para agendamentos.'},
+  {icon:'👗',tag:'Moda — Tráfego + Social',title:'Boutique Elegance',
+    text:'Combinação de Social Media + Meta Ads com criativos desenvolvidos pela Nix. ROAS médio de 4.2x, redução de 38% no custo por compra. Faturamento online triplicou em 5 meses.'},
+  {icon:'⚖️',tag:'Advocacia — Site + Google',title:'Silva & Advogados',
+    text:'Site institucional moderno + campanhas Google Ads local. Resultado: 5x mais contatos mensais, posição top 3 no Google Maps e autoridade digital consolidada no segmento jurídico.'},
+];
+function openModal(i){
+  const p=proj[i];
+  document.getElementById('mImg').textContent=p.icon;
+  document.getElementById('mTag').textContent=p.tag;
+  document.getElementById('mTitle').textContent=p.title;
+  document.getElementById('mText').textContent=p.text;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+function closeModalOut(e){if(e.target.id==='modalOverlay')closeModal();}
+
+// ─ FORM ─
+function submitForm(){
+  const name=document.getElementById('fName').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  if(!name||!email){showToast('Preencha nome e e-mail.','error');return;}
+  showToast('✓ Mensagem enviada! Entraremos em contato em breve.');
+  ['fName','fCompany','fEmail','fPhone','fMsg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fService').value='';
+}
+
+// ─ TOAST ─
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast'+(type==='error'?' error':'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+// ─ REVEAL ─
+function initReveals(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(r=>obs.observe(r));
+}
+initReveals();
+</script>
+</body>
+</html>
